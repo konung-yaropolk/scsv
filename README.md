@@ -1,2 +1,2 @@
 # scsv
-scsv - is a simple csv reading tool
+scsv - a simple csv reading tool
