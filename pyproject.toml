@@ -33,6 +33,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/konung-yaropolk/scsv"
+Repository = "https://github.com/konung-yaropolk/scsv.git"
 Issues = "https://github.com/konung-yaropolk/scsv/issues"
 
 [tool.setuptools.dynamic]
