@@ -24,6 +24,19 @@ class _Transform_methods():
         # Remove None values if padding was used
         return [[element for element in row if element is not None] for row in transposed]
 
+    def _floatify_recursive(self, data):
+        if isinstance(data, list):
+            # Recursively process sublists and filter out None values
+            processed_list = [self._floatify_recursive(item) for item in data]
+            return [item for item in processed_list if item is not None]
+        else:
+            try:
+                # Try to convert the item to float
+                return float(data)
+            except (ValueError, TypeError):
+                # If conversion fails, replace with None               
+                return None
+
 
 class OpenFile(_Transform_methods):
     '''
@@ -39,6 +52,8 @@ class OpenFile(_Transform_methods):
             self.Rows = list(csv.reader(file, delimiter=delimiter, lineterminator=lineterminator))
 
         self.Cols = self._transpose_matrix(self.Rows)
+        self.ColsFloat = self._floatify_recursive(self.Cols)
+        self.RowsFloat = self._floatify_recursive(self.Rows)
 
     def GetTableByRows(self) -> list:
         return self.Rows
