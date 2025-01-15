@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import csv
 
+
 class _Transform_methods():
 
     def _floatify_recursive(self, data):
@@ -20,7 +21,8 @@ class _Transform_methods():
     def _transpose_matrix(self, matrix):
         max_len = max(len(row) for row in matrix)
         padded_matrix = [row + [None] * (max_len - len(row)) for row in matrix]
-        transposed = [[padded_matrix[j][i] for j in range(len(padded_matrix))] for i in range(max_len)]
+        transposed = [[padded_matrix[j][i]
+                       for j in range(len(padded_matrix))] for i in range(max_len)]
         # Remove None values if padding was used
         return [[element for element in row if element is not None] for row in transposed]
 
@@ -34,7 +36,7 @@ class _Transform_methods():
                 # Try to convert the item to float
                 return float(data)
             except (ValueError, TypeError):
-                # If conversion fails, replace with None               
+                # If conversion fails, replace with None
                 return None
 
 
@@ -49,7 +51,8 @@ class OpenFile(_Transform_methods):
         self.floatify = floatify
 
         with open(self.file_path, 'r', encoding='utf-8-sig') as file:
-            self.Rows = list(csv.reader(file, delimiter=delimiter, lineterminator=lineterminator))
+            self.Rows = list(csv.reader(
+                file, delimiter=delimiter, lineterminator=lineterminator))
 
         self.Cols = self._transpose_matrix(self.Rows)
         self.ColsFloat = self._floatify_recursive(self.Cols)
@@ -60,7 +63,7 @@ class OpenFile(_Transform_methods):
 
     def GetTableByCols(self) -> list:
         return self.Cols
-    
+
     def GetCol(self, col_id) -> list:
         assert col_id > 0, 'Column numger must be starting from 1'
         output = []
@@ -118,6 +121,7 @@ class OpenFile(_Transform_methods):
                 )
 
         return output
-    
+
+
 if __name__ == '__main__':
-    print('\nThis script can be used as an imported module only\n')
+    print('This package works as an imported module only.\nUse "import cscv" statement')
